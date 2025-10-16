@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💞 Love Compatibility Calculator</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #ff4da6, #26001b);
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #ff66b2;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 500px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #ff99cc;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 20px #ff99cc55;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      color: #ffe6f2;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    input[type="date"] {
+      background: #fff0f6;
+    }
+
+    .btn {
+      margin-top: 20px;
+      background: linear-gradient(45deg, #ff66b2, #ff0080);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px #ff66b2;
+    }
+
+    .btn:hover {
+      background: linear-gradient(45deg, #ff85c1, #ff33a6);
+      box-shadow: 0 0 20px #ff33a6;
+    }
+
+    #result {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .score {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #ff99cc;
+      text-shadow: 0 0 15px #ff66b2;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: #fff5f9;
+    }
+
+    .heart {
+      font-size: 4rem;
+      animation: beat 1s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💞 Love Compatibility Calculator 💞</h1>
+  <p>Masukkan nama & tanggal lahir kalian untuk mengetahui tingkat kecocokan!</p>
+
+  <div class="container" id="form-container">
+    <label>Nama Kamu:</label>
+    <input type="text" id="name1" placeholder="Contoh: Rian">
+
+    <label>Tanggal Lahir Kamu:</label>
+    <input type="date" id="birth1">
+
+    <label>Nama Pasangan:</label>
+    <input type="text" id="name2" placeholder="Contoh: Dinda">
+
+    <label>Tanggal Lahir Pasangan:</label>
+    <input type="date" id="birth2">
+
+    <button class="btn" onclick="calculateLove()">💘 Hitung Kecocokan</button>
+  </div>
+
+  <div id="result">
+    <div class="heart">💖</div>
+    <div class="score" id="loveScore"></div>
+    <div class="message" id="loveMessage"></div>
+    <button class="btn" onclick="resetForm()">🔁 Coba Lagi</button>
+  </div>
+
+  <script>
+    function calculateLove() {
+      const name1 = document.getElementById('name1').value.trim();
+      const name2 = document.getElementById('name2').value.trim();
+      const birth1 = document.getElementById('birth1').value;
+      const birth2 = document.getElementById('birth2').value;
+
+      if (!name1 || !name2 || !birth1 || !birth2) {
+        alert('Isi semua kolom dulu ya 💕');
+        return;
+      }
+
+      // Logika unik: kombinasi nama + tanggal lahir → random love score
+      const mix = (name1 + name2 + birth1 + birth2).toLowerCase();
+      let total = 0;
+      for (let i = 0; i < mix.length; i++) total += mix.charCodeAt(i);
+      const lovePercent = (total % 101); // hasil 0–100
+
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('result').style.display = 'block';
+
+      document.getElementById('loveScore').innerText = `${lovePercent}% 💞`;
+
+      let msg = "";
+      if (lovePercent >= 90) msg = "💍 Kalian pasangan impian! Takdir sepertinya sudah berpihak.";
+      else if (lovePercent >= 75) msg = "😍 Kalian cocok banget, tinggal jaga komunikasi ya!";
+      else if (lovePercent >= 60) msg = "😊 Lumayan serasi, tapi perlu saling pengertian lebih.";
+      else if (lovePercent >= 40) msg = "😅 Ada potensi, tapi butuh usaha dan kesabaran.";
+      else msg = "💔 Hmmm... mungkin lebih cocok jadi teman curhat aja?";
+
+      document.getElementById('loveMessage').innerText = msg;
+    }
+
+    function resetForm() {
+      document.getElementById('form-container').style.display = 'block';
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('name1').value = '';
+      document.getElementById('name2').value = '';
+      document.getElementById('birth1').value = '';
+      document.getElementById('birth2').value = '';
+    }
+  </script>
+</body>
+</html>
